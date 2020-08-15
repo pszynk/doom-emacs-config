@@ -68,9 +68,32 @@
 ;;
 ;;; Packages
 
+;; *** atomic-chrome
 (use-package! atomic-chrome
   :after-call focus-out-hook
   :config
   (setq atomic-chrome-default-major-mode 'markdown-mode
         atomic-chrome-buffer-open-style 'frame)
   (atomic-chrome-start-server))
+
+
+;;; :tools magit
+(setq magit-repository-directories '(("~/projects" . 2))
+      magit-save-repository-buffers nil
+      ;; Don't restore the wconf after quitting magit, it's jarring
+      magit-inhibit-save-previous-winconf t)
+;;; :tools projectile
+(after! projectile
+  (setq projectile-ignored-projects '("~/" "/tmp")
+        projectile-project-search-path '("~/Projects")
+        ))
+
+
+;;; :lang org
+(setq org-directory "~/projects/org/"
+      org-archive-location (concat org-directory ".archive/%s::")
+      org-roam-directory (concat org-directory "notes/")
+      ;;org-journal-encrypt-journal t
+      org-journal-file-format "%Y%m%d.org"
+      ;;org-ellipsis " ▼ "
+      org-superstar-headline-bullets-list '("#"))
