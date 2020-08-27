@@ -132,3 +132,14 @@
       ;;org-ellipsis " ▼ "
       org-superstar-headline-bullets-list '("#"))
 
+;;; OTHER STUFF
+
+(defun pszynk/ediff-init-and-example ()
+  "ediff the current `init.el' with the example in doom-emacs-dir"
+  (interactive)
+  (ediff-files (concat doom-private-dir "init.el")
+               (concat doom-emacs-dir "init.example.el")))
+
+(define-key! help-map
+  "di"   #'pszynk/ediff-init-and-example
+  )
