@@ -1,4 +1,4 @@
-;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
+;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
 
@@ -45,7 +45,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-;;(setq display-line-numbers-type t)
+;;(setq display-mbers-type t)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -77,19 +77,53 @@
   (atomic-chrome-start-server))
 
 
-;;; :tools magit
-(setq magit-repository-directories '(("~/projects" . 2))
+;;; Modules
+
+;;; :completion
+
+;;; ivy
+
+;;; +childframe
+;;; don't use childrame for those also
+;(after! ivy
+;  (when (featurep! :completion ivy +childframe)
+;    (dolist (fn '(counsel-describe-function counsel-describe-variable))
+;      (setf (alist-get fn ivy-posframe-display-functions-alist)
+;            #'ivy-display-function-fallback))
+;    )
+;  )
+
+;;; :editor
+
+;;; :tools
+
+;;; editor
+(setq +format-on-save-enabled-modes
+      '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
+            sql-mode         ; sqlformat is currently broken
+            tex-mode         ; latexindent is broken
+            latex-mode
+            go-mode))        ; too aggresive
+
+;;; lsp
+(setq lsp-eldoc-render-all t) ;; maybe a bit much...
+
+;;; magit
+(setq magit-repository-directories '(("~/Projects" . 2))
       magit-save-repository-buffers nil
       ;; Don't restore the wconf after quitting magit, it's jarring
       magit-inhibit-save-previous-winconf t)
-;;; :tools projectile
+
+;;; projectile
 (after! projectile
   (setq projectile-ignored-projects '("~/" "/tmp")
-        projectile-project-search-path '("~/Projects")
+        projectile-project-search-path '("~/Projects/prog")
         ))
 
 
-;;; :lang org
+;;; :lang
+
+;;; org
 (setq org-directory "~/projects/org/"
       org-archive-location (concat org-directory ".archive/%s::")
       org-roam-directory (concat org-directory "notes/")
@@ -97,3 +131,4 @@
       org-journal-file-format "%Y%m%d.org"
       ;;org-ellipsis " ▼ "
       org-superstar-headline-bullets-list '("#"))
+
