@@ -80,9 +80,12 @@
 ;;; Modules
 
 ;;; :completion
+;;; *** counsel
+;; https://github.com/hlissner/doom-emacs/issues/3038 
+(after! counsel
+   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never --no-messages %s || true"))
 
 ;;; ivy
-
 ;;; +childframe
 ;;; don't use childrame for those also
 ;(after! ivy
@@ -95,8 +98,19 @@
 
 ;;; :editor
 
-;;; :tools
+;;; :checkers
+;;; spell
+;;; +flyspell
+(after! ispell
+  (setq ispell-program-name "hunspell")
+  (require 'config-spellcheck)
+  ;; ispell-set-spellchecker-params has to be called
+  ;; before ispell-hunspell-add-multi-dic will work
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "pl_PL,en_US")
+  )
 
+;;; :tools
 ;;; editor
 (setq +format-on-save-enabled-modes
       '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
@@ -122,7 +136,6 @@
 
 
 ;;; :lang
-
 ;;; org
 (setq org-directory "~/projects/org/"
       org-archive-location (concat org-directory ".archive/%s::")

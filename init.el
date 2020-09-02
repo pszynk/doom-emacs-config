@@ -35,7 +35,8 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       fill-column       ; a `fill-column' indicator
+       ;; fill-column       ; a `fill-column' indicator
+                            ; DEPRECATED Replaced by `display-fill-column-indicator-mode' in Emacs 27+
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        indent-guides     ; highlighted indent columns
@@ -59,7 +60,8 @@
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       format            ; automated prettiness
+       ;; +onsave)         ; this can be super annoying, better use call format when you need it!  
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        ;;multiple-cursors  ; editing in many places at once
@@ -87,7 +89,9 @@
 
        :checkers
        syntax            ; tasing you for every semicolon you forget
-       spell             ; tasing you for misspelling mispelling
+       (spell            ; tasing you for misspelling mispelling
+        +flyspell       ; spell-fu doesn't like non-english for now?
+        +hunspell)      ; hunspell > aspell (or is it?)
        grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -101,7 +105,8 @@
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        lsp
-       magit             ; a git porcelain for Emacs
+       (magit            ; a git porcelain for Emacs
+        +forge)          ; want to work in a forge!
        make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf               ; pdf enhancements
@@ -117,7 +122,7 @@
 
        :lang
        ;;agda              ; types of types of types of types...
-       ;;cc                ; C/C++/Obj-C madness
+       cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
