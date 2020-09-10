@@ -102,8 +102,6 @@
 ;;; spell
 ;;; +flyspell
 (after! ispell
-  (setq ispell-program-name "hunspell")
-  (require 'config-spellcheck)
   ;; ispell-set-spellchecker-params has to be called
   ;; before ispell-hunspell-add-multi-dic will work
   (ispell-set-spellchecker-params)
