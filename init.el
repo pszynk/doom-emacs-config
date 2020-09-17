@@ -115,6 +115,8 @@
        ;;terraform         ; infrastructure as code
        tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
+       atomic-chrome     ; emacs in the browser
+       apache            ; writing server config is a pain!
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
@@ -192,4 +194,6 @@
 
        :config
        ;;literate
-       (default +bindings +smartparens))
+       (default +bindings +smartparens)
+       diff              ; have I seen you here before?
+       )

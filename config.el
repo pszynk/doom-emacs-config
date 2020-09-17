@@ -6,12 +6,9 @@
 ;; clients, file templates and snippets.
 (setq user-full-name "Paweł Szynkiewicz"
       user-mail-address "pszynk@gmail.com"
-
-
       ;; Line numbers are pretty slow all around. The performance boost of
       ;; disabling them outweighs the utility of always keeping them on.
       display-line-numbers-type nil
-
       ;; More common use-case
       evil-ex-substitute-global t)
 
@@ -28,8 +25,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-       ;; :family "FantasqueSansMono Nerd Font Mono"
-       ;; :size 20
+;; :family "FantasqueSansMono Nerd Font Mono"
+;; :size 20
 (setq doom-font
       (font-spec
        :family "JetBrainsMono Nerd Font"
@@ -70,33 +67,26 @@
 ;;
 ;;; Packages
 
-;; *** atomic-chrome
-(use-package! atomic-chrome
-  :after-call focus-out-hook
-  :config
-  (setq atomic-chrome-default-major-mode 'markdown-mode
-        atomic-chrome-buffer-open-style 'frame)
-  (atomic-chrome-start-server))
-
-
 ;;; Modules
 
 ;;; :completion
 ;;; *** counsel
-;; https://github.com/hlissner/doom-emacs/issues/3038 
+;; https://github.com/hlissner/doom-emacs/issues/3038
 (after! counsel
-   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never --no-messages %s || true"))
+  (setq counsel-rg-base-command
+        "rg -M 240 --with-filename --no-heading --line-number --color never \
+--no-messages %s || true"))
 
 ;;; ivy
 ;;; +childframe
 ;;; don't use childrame for those also
-;(after! ivy
-;  (when (featurep! :completion ivy +childframe)
-;    (dolist (fn '(counsel-describe-function counsel-describe-variable))
-;      (setf (alist-get fn ivy-posframe-display-functions-alist)
-;            #'ivy-display-function-fallback))
-;    )
-;  )
+;;(after! ivy
+;;  (when (featurep! :completion ivy +childframe)
+;;    (dolist (fn '(counsel-describe-function counsel-describe-variable))
+;;      (setf (alist-get fn ivy-posframe-display-functions-alist)
+;;            #'ivy-display-function-fallback))
+;;    )
+;;  )
 
 ;;; :editor
 
@@ -107,8 +97,7 @@
   ;; ispell-set-spellchecker-params has to be called
   ;; before ispell-hunspell-add-multi-dic will work
   (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "pl_PL,en_US")
-  )
+  (ispell-hunspell-add-multi-dic "pl_PL,en_US"))
 
 ;;; :tools
 ;;; editor
@@ -120,6 +109,8 @@
             go-mode))        ; too aggresive
 
 ;;; lsp
+;; Display all of the info returned by document/onHover. If this is nil, eldoc
+;; will show only the symbol information.
 (setq lsp-eldoc-render-all t) ;; maybe a bit much...
 
 ;;; magit
@@ -131,8 +122,7 @@
 ;;; projectile
 (after! projectile
   (setq projectile-ignored-projects '("~/" "/tmp")
-        projectile-project-search-path '("~/Projects/prog")
-        ))
+        projectile-project-search-path '("~/Projects/prog")))
 
 
 ;;; :lang
@@ -144,15 +134,3 @@
       org-journal-file-format "%Y%m%d.org"
       ;;org-ellipsis " ▼ "
       org-superstar-headline-bullets-list '("#"))
-
-;;; OTHER STUFF
-
-(defun pszynk/ediff-init-and-example ()
-  "ediff the current `init.el' with the example in doom-emacs-dir"
-  (interactive)
-  (ediff-files (concat doom-private-dir "init.el")
-               (concat doom-emacs-dir "init.example.el")))
-
-(define-key! help-map
-  "di"   #'pszynk/ediff-init-and-example
-  )
