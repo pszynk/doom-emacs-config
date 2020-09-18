@@ -30,7 +30,7 @@
 (setq doom-font
       (font-spec
        :family "JetBrainsMono Nerd Font"
-       :size 18
+       :size 17
        :weight 'normal))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and

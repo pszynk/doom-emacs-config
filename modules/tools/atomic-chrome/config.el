@@ -4,5 +4,5 @@
   :after-call focus-out-hook
   :config
   (setq atomic-chrome-default-major-mode 'markdown-mode
-        atomic-chrome-buffer-open-style 'frame)
+        atomic-chrome-buffer-open-style 'split)
   (atomic-chrome-start-server))
