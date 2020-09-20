@@ -116,13 +116,13 @@
        tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
        atomic-chrome     ; emacs in the browser
-       apache            ; writing server config is a pain!
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
 
        :lang
+       conf              ; writing configs is a pain!
        ;;agda              ; types of types of types of types...
        cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
