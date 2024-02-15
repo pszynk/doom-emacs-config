@@ -1,4 +1,4 @@
-;;; psz-config/diff/autoload.el -*- lexical-binding: t; -*-
+;;; config/diff/autoload.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
 (defun pszynk/ediff-init-and-example ()

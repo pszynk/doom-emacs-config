@@ -1,4 +1,4 @@
-;;; psz-config/diff/config.el -*- lexical-binding: t; -*-
+;;; config/diff/config.el -*- lexical-binding: t; -*-
 
 
 (define-key! help-map

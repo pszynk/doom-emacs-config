@@ -1,7 +1,4 @@
-;;; config.el --- -*- lexical-binding: t -*-
-
-;; email obfuscation
-(defun @gmail (address) (concat address "@gmail.com"))
+;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
 
@@ -17,10 +14,8 @@
       evil-ex-substitute-global t)
 
 ;; GPG
-;;
+;; using default for doom:
 ;; ~/.config/emacs/.local/etc/authinfo.gpg
-;; TODO add something like ~/.config/doom/.secrets/authinfo.gpg
-;;      and move default /.authinfo.gpg
 ;; (set auth-sources '("/.authinfo.gpg")
 ;;      auth-source-cache-expiry 7200) ; default is 7200 (2h), nil for no expiry
 (setq auth-source-cache-expiry nil)
@@ -95,13 +90,13 @@
 ;; ivy
 ;; +childframe
 ;; don't use childrame for those also
-                                        ;(after! ivy
-                                        ;  (when (featurep! :completion ivy +childframe)
-                                        ;    (dolist (fn '(counsel-describe-function counsel-describe-variable))
-                                        ;      (setf (alist-get fn ivy-posframe-display-functions-alist)
-                                        ;            #'ivy-display-function-fallback))
-                                        ;    )
-                                        ;  )
+;(after! ivy
+;  (when (featurep! :completion ivy +childframe)
+;    (dolist (fn '(counsel-describe-function counsel-describe-variable))
+;      (setf (alist-get fn ivy-posframe-display-functions-alist)
+;            #'ivy-display-function-fallback))
+;    )
+;  )
 
 ;;; :editor
 
@@ -117,10 +112,10 @@
 ;;; editor
 (setq +format-on-save-enabled-modes
       '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
-        sql-mode         ; sqlformat is currently broken
-        tex-mode         ; latexindent is broken
-        latex-mode
-        go-mode))        ; too aggresive
+            sql-mode         ; sqlformat is currently broken
+            tex-mode         ; latexindent is broken
+            latex-mode
+            go-mode))        ; too aggresive
 
 ;;; lsp
 
@@ -135,11 +130,7 @@
           "glucyn.zisi.nask.pl/api/v4"
           "glucyn.zisi.nask.pl"
           forge-gitlab-repository) forge-alist)
-  (push '("github.mit.edu"
-          "github.mit.edu/api/v3"
-          "github.mit.edu"
-          forge-github-repository) forge-alist)
-  )
+)
 ;;; projectile
 (after! projectile
   (setq projectile-ignored-projects '("~/" "/tmp")
@@ -147,9 +138,9 @@
         (append '("~/Projects/code"
                   "~/Work/nask")
                 (directory-files
-                 "~/Projects/code/exercism"
-                 t
-                 directory-files-no-dot-files-regexp)))
+                        "~/Projects/code/exercism"
+                        t
+                        directory-files-no-dot-files-regexp)))
   (pushnew! projectile-globally-ignored-directories ".nox" ".mypy_cache")
 
   )
@@ -161,15 +152,15 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 ;;(setq org-directory "~/org/")
-                                        ;(setq org-directory "~/.org/"
-                                        ;      org-archive-location (concat org-directory ".archive/%s::")
-                                        ;      org-roam-directory (concat org-directory "notes/")
-                                        ;      org-roam-db-location (concat org-roam-directory ".org-roam.db")
-                                        ;      ;;org-journal-encrypt-journal t ; TODO encript, what is journal?
-                                        ;      org-journal-file-format "%Y%m%d.org"
-                                        ;      org-startup-folded 'overview
-                                        ;      org-ellipsis " [...] "
-                                        ;      org-superstar-headline-bullets-list '("#"))
+(setq org-directory "~/.org/"
+      org-archive-location (concat org-directory ".archive/%s::")
+      org-roam-directory (concat org-directory "notes/")
+      org-roam-db-location (concat org-roam-directory ".org-roam.db")
+      ;;org-journal-encrypt-journal t ; TODO encript, what is journal?
+      org-journal-file-format "%Y%m%d.org"
+      org-startup-folded 'overview
+      org-ellipsis " [...] "
+      org-superstar-headline-bullets-list '("#"))
 
 ;;; +org-tree-slide-mode TODO simple profile: NO on startup?
 ;; (use-package! org-tree-slid
@@ -179,27 +170,7 @@
 ;;         org-tree-slide-slide-in-effect t
 ;;         )
 ;;   )
-;; (add-to-list 'org-src-lang-modes '("gotmpl" . web))
-;; let Org-mode Babel src code block auto set `web-mode-engine' for rhtml.
-;; (defadvice org-edit-special (before org-edit-src-code activate)
-;;   (let ((lang (nth 0 (org-babel-get-src-block-info))))
-;;     (if (string= lang "gotmpl")
-;;         (web-mode-set-engine "go"))
-;;     ))
-;; (defun web-mode-set-engine-babel ()
-;;   (let ((lang (nth 0 (org-babel-get-src-block-info))))
-;;     (if (string= lang "gotmpl")
-;;         (web-mode-set-engine "go"))
-;;     ))
 
-;; (advice-add 'org-edit-special :before #'web-mode-set-engine-babel)
-;; (advice-add 'org-babel-tangle :before #'web-mode-set-engine-babel)
-
-
-
-;; (setq
-;;  org-babel-tangle-comment-format-beg "{{ asdasd [[%link][source-name]] }}"
-;;  org-babel-tangle-comment-format-end "{{ %source-name ends here }}")
 ;;; +org-contacts
 (setq my/org-contacts-main-file (concat org-directory "contacts.org"))
 
@@ -269,7 +240,7 @@
 
 ;;; dap-mode (debugger)
 (after! dap-mode
-  (setq dap-python-debugger 'debugpy))
+    (setq dap-python-debugger 'debugpy))
 
 ;;; lsp-mode
 ;; *.pyi in find references! No more!
@@ -282,16 +253,16 @@
   (cl-remove-if #'pszynk/xref-python-stub-p items))
 
 ;; add toggle on lsp-headerline-breadcrumb-mode
-                                        ;(use-package! lsp-mode
-                                        ;  :defer t
-                                        ;  :custom
-                                        ;  ;; Display all of the info returned by document/onHover. If this is nil, eldoc
-                                        ;  ;; will show only the symbol information.
-                                        ;  (lsp-eldoc-render-all t "More info on what the cursor is at") ;; maybe a bit much...
-                                        ;  (lsp-headerline-breadcrumb-segments '(symbols) "Path and file visible elsewhere.")
-                                        ;  :config
-                                        ;  (advice-add 'lsp--locations-to-xref-items
-                                        ;              :filter-return #'pszynk/filter-not-python-stub-definitions))
+;(use-package! lsp-mode
+;  :defer t
+;  :custom
+;  ;; Display all of the info returned by document/onHover. If this is nil, eldoc
+;  ;; will show only the symbol information.
+;  (lsp-eldoc-render-all t "More info on what the cursor is at") ;; maybe a bit much...
+;  (lsp-headerline-breadcrumb-segments '(symbols) "Path and file visible elsewhere.")
+;  :config
+;  (advice-add 'lsp--locations-to-xref-items
+;              :filter-return #'pszynk/filter-not-python-stub-definitions))
 (after! lsp-mode
   ;; Display all of the info returned by document/onHover. If this is nil, eldoc
   ;; will show only the symbol information.

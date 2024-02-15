@@ -1,4 +1,143 @@
+#+TITLE: Pszynk's Doom Emacs config
+#+LANGUAGE: en
+#+LINK: markus-gattol https://www.markus-gattol.name/ws/.emacs.html
+
+* Pszynk's Doom Emacs config
+
+Yet another take on Doom Emacs configuration. No smart-ass quotes or funny comic
+strips (at least not just yet). This is purely for self-learning purposes,
+if you find something useful here, good for you. Just remember, your getting
+inspired at your own risk.
+
+** Sources
+
+Configuration is heavily based on online sources and other configurations.
+Here is a list.
+
+*** Why Emacs?
+
+- [[https://two-wrongs.com/why-you-should-buy-into-the-emacs-platform][Why You Should Buy Into the Emacs Platform]]
+- [[https://www.reddit.com/r/emacs/comments/hmtwbt/i_use_emacs_because/][I use emacs because...]]
+- [[https://github.com/remacs/remacs#why-emacs][Why Emacas - the inspirational one]]
+- [[https://github.com/tecosaur/emacs-config/blob/master/config.org#why-emacs][Emacs - other editor comparison]]
+
+*** On Emacs Doom
+
+- [[https://github.com/hlissner/doom-emacs][Doom Emacs project]]
+- [[https://blog.jethro.dev/posts/migrating_to_doom_emacs/][Migrating To Doom Emacs]]
+
+*** Other configurations
+
+- [[https://github.com/hlissner/doom-emacs-private][hissner]] (Emacs Doom creator)
+- [[https://github.com/MatthewZMD/.emacs.d][MatthewZMD]]
+- [[https://gitlab.com/justinekizhak/dotfiles/-/tree/master/emacs/doom.d][Justine Kizhakkinedath]]
+- [[markus-gattol][Markus Gattol]]
+
+
+** License
+
+You have the permission to use, modify, distribute in any way you want.
+
+However, what is /free/ stays /free/. After all, this is [[file:LICENSE.org][GPL]].
+
+All the files inside the ~doom.d~ is licensed under the terms of GNU GENERAL PUBLIC
+LICENSE Version 3.
+
+For more information [[file:LICENSE.org][read the license]].
+
+
+* Lexical Binding
+
+Use lexical-binding. [[https://nullprogram.com/blog/2016/12/22/][Why?]]
+
+#+begin_quote
+Until Emacs 24.1 (June 2012), Elisp only had dynamically scoped variables,
+a feature, mostly by accident, common to old lisp dialects. While dynamic
+scope has some selective uses, it’s widely regarded as a mistake for local
+variables, and virtually no other languages have adopted it.
+#+end_quote
+
+#+begin_src emacs-lisp
 ;;; config.el --- -*- lexical-binding: t -*-
+#+end_src
+
+* COMMENT Private configuration
+
+This is inspired by the [[markus-gattol][Markus Gattol]] configuration.
+
+For privacy reasons, some data in my =.doom= is hidden and not exposed for public
+view on the Internet. I have to make sure my =.doom= does not contain information
+that could become problematic for me or other folks (e.g. their email address
+could be used to send SPAM to them).
+
+Private information is stored in a =secrets= file outside of the repository (it
+can be a private repository). All private variables follow naming pattern
+=priv-...= e.g. =priv-my-name=. Every time you see a variable starting with
+=priv-= , you now know this variable is evaluated and replaced with something
+stored in =secrets=.
+
+Just to clarify this is used for private but not confidential data like peoples
+names, email address, phone numbers etc... Never, NEVER, **NEVER** store
+passwords, keys and similar like that. For such, Emacs has a dedicated
+mechanisms using GPG:
+[[https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources][Keeping Secrets in Emacs with GnuPG and Auth Sources]]
+
+#+begin_src emacs-lisp
+(load-file ".emacs_secrets/personal.el")
+#+end_src
+
+* COMMENT Personal Information
+
+Let's set some variables with basic user information.
+
+#+begin_src emacs-lisp
+(setq user-full-name priv-user-full-name
+      user-mail-address priv-primary-gmail-address)
+#+end_src
+
+* COMMENT Emacs defaults
+
+This could be set like that:
+
+#+begin_src emacs-lisp
+(use-package emacs
+  :preface
+  (defvar psz/indent-width 2) ; change this value to your preferred width
+  :config
+  (setq
+    ring-bell-function 'ignore       ; minimise distraction
+    frame-resize-pixelwise t
+    default-directory "~/")
+
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+
+  ;; increase line space for better readability
+  (setq-default line-spacing 3)
+
+  ;; Always use spaces for indentation
+  (setq-default indent-tabs-mode nil
+                tab-width psz/indent-width))
+#+end_src
+
+* Editor
+
+** COMMENT Confirm kill process
+
+Don’t bother confirming killing processes
+
+#+begin_src emacs-lisp
+(use-package files
+  :defer t
+  :config
+  (setq confirm-kill-processes nil))
+#+end_src
+
+
+* Old
+
+
+#+begin_src elisp
 
 ;; email obfuscation
 (defun @gmail (address) (concat address "@gmail.com"))
@@ -304,3 +443,6 @@
             "[/\\\\]\\.mypy_cache\\'")
   (advice-add 'lsp--locations-to-xref-items
               :filter-return #'pszynk/filter-not-python-stub-definitions))
+#+end_src
+
+#+RESULTS:

@@ -1,4 +1,4 @@
-;;; psz-tools/atomic-chrome/config.el -*- lexical-binding: t; -*-
+;;; tools/atomic-chrome/config.el -*- lexical-binding: t; -*-
 
 (use-package! atomic-chrome
   :after-call focus-out-hook
