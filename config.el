@@ -141,15 +141,16 @@
           forge-github-repository) forge-alist)
   )
 ;;; projectile
+;(directory-files
+;                 "~/Projects/code/exercism"
+;                 t
+;                 directory-files-no-dot-files-regexp)
 (after! projectile
   (setq projectile-ignored-projects '("~/" "/tmp")
         projectile-project-search-path
         (append '("~/Projects/code"
                   "~/Work/nask")
-                (directory-files
-                 "~/Projects/code/exercism"
-                 t
-                 directory-files-no-dot-files-regexp)))
+                ))
   (pushnew! projectile-globally-ignored-directories ".nox" ".mypy_cache")
 
   )
