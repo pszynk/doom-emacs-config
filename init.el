@@ -1,11 +1,11 @@
-;;; ~/.config/doom/init.el -*- lexical-binding: t; -*-
+;;; init.el -*- lexical-binding: t; -*-
 
 ;; This file controls what Doom modules are enabled and what order they load
 ;; in. Remember to run 'doom sync' after modifying it!
 
 ;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
-;;      documentation. There you'll find a "Module Index" link where you'll find
-;;      a comprehensive list of Doom's modules and what flags they support.
+;;      documentation. There you'll find a link to Doom's Module Index where all
+;;      of our modules are listed, including what flags they support.
 
 ;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
 ;;      'C-c c k' for non-vim users) to view its documentation. This works on
@@ -15,30 +15,31 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :input
+       ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
        ;;chinese
        ;;japanese
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company           ; the ultimate code completion backend
+       ;;company           ; the ultimate code completion backend
+       (corfu +orderless)  ; complete with cap(f), cape and a flying feather!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy              ; a search engine for love and life
-        ;; +fuzzy           ; sometimes fun to use, but not is it really necessary? Yep it is!
-        +prescient       ; simple but cool
-        ;; +childframe      ; pretty cool but ivy-postframe is not very actively maintained
-                            ; Also frame changes size for M-x and it's annoying
-        +icons)          ; eh, what a hell have some bling
+       ;;(ivy              ; a search engine for love and life
+       ;;  +fuzzy           ; sometimes fun to use, but not is it really necessary? Yep it is!
+       ;; +prescient       ; simple but cool
+       ;;  +childframe      ; pretty cool but ivy-postframe is not very actively maintained
+       ;;                     ; Also frame changes size for M-x and it's annoying
+       ;; +icons)          ; eh, what a hell have some bling
+       vertico           ; the search engine of the future
 
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;; fill-column       ; a `fill-column' indicator
-                            ; DEPRECATED Replaced by `display-fill-column-indicator-mode' in Emacs 27+
+       ;;(emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       hydra
        indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
        minimap           ; show a map of the code on the side
@@ -50,7 +51,7 @@
        ;;tabs              ; a tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
-       vc-gutter         ; vcs diff in the fringe
+       (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
@@ -61,7 +62,7 @@
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
        format            ; automated prettiness
-       ;; +onsave)         ; this can be super annoying, better use call format when you need it!  
+       ;; +onsave)         ; this can be super annoying, better use call format when you need it!
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        ;;multiple-cursors  ; editing in many places at once
@@ -96,13 +97,14 @@
 
        :tools
        ansible
+       ;;biblio            ; Writes a PhD for you (citation needed)
+       ;;collab            ; buffers with friends
        debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
-       (eval +overlay)   ; run code, run (also, repls)
-       ;;gist              ; interacting with github gists
+       (eval +overlay)     ; run code, run (also, repls)
        lookup              ; navigate your code and its documentation
        lsp
        (magit            ; a git porcelain for Emacs
@@ -114,15 +116,15 @@
        ;;rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
        tmux              ; an API for interacting with tmux
-       ;;upload            ; map local to remote projects via ssh/ftp
+       ;;tree-sitter       ; syntax and parsing, sitting in a tree...
+       ;; ------ CUSTOM ------------------------------------------------------------------
        atomic-chrome     ; emacs in the browser
 
        :os
-       (:if IS-MAC macos)  ; improve compatibility with macOS
+       (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
 
        :lang
-       conf              ; writing configs is a pain!
        ;;agda              ; types of types of types of types...
        cc                ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
@@ -180,20 +182,22 @@
        ;;terra             ; Earth and Moon in alignment for performance.
        web               ; the tubes
        yaml              ; JSON, but readable
+       ;; ------ CUSTOM ------------------------------------------------------------------
+       conf              ; writing configs is a pain!
 
        :email
-       ;;(mu4e +gmail)
+       ;;(mu4e +org +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 
        :app
        ;;calendar
+       ;;emms
+       ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
-       ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
        ;;literate
        (default +bindings +smartparens)
-       diff              ; have I seen you here before?
-       )
+       diff)              ; have I seen you here before?
